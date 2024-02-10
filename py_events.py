@@ -9,14 +9,6 @@ driver.get('https://www.python.org/')
 
 events = driver.find_elements(By.CSS_SELECTOR, '.event-widget li')
 
-events_dict = {}
-
-i=0
-for event in events:
-    events_dict[i] = {
-        'time': event.find_element(By.TAG_NAME, 'time').get_attribute('datetime').split('T')[0],
-        'name': event.find_element(By.TAG_NAME, 'a').text
-    }
-    i += 1
+events_dict = {i: {'name': events[i].find_element(By.TAG_NAME, 'time').get_attribute('datetime').split('T')[0], 'time': events[i].find_element(By.TAG_NAME, 'a').text} for i in range(len(events))}
 
 print(events_dict)
